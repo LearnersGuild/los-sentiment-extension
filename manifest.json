@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+  "name": "LOS Sentiment",
+  "version": "0.1.0",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/LearnersGuild/*/pull/*/files"
+      ],
+      "js": ["lib/app.js"],
+      "css" : ["lib/app.css"]
+    }
+  ]
+}

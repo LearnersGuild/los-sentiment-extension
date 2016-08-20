@@ -1,0 +1,19 @@
+.app {
+  font-family: Roboto, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.survey {
+  width: 66%;
+}
+
+.explanation {
+  display: flex;
+  justify-content: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
