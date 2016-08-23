@@ -18,7 +18,7 @@ module.exports = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['', '.scss', '.css', '.js', '.json'],
+    extensions: ['.js', '.jsx', '.json', '', '.scss', '.css'],
     modulesDirectories: [
       'node_modules',
       path.resolve(rootPath, './node_modules')
@@ -31,8 +31,13 @@ module.exports = {
         loader: 'babel',
         exclude: /(node_modules)/,
       }, {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap'),
+        include: path.resolve(appPath, 'index.css'),
+      }, {
         test: /(\.scss|\.css)$/,
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass')
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass'),
+        exclude: [path.resolve(appPath, 'index.css')],
       }
     ]
   },
