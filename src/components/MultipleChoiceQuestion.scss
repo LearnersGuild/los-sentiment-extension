@@ -1,0 +1,19 @@
+.multipleChoiceQuestion {
+  font-family: Roboto, sans-serif;
+
+  h3 {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  .radioGroup {
+    margin-left: 1.2rem;
+  }
+
+  .choiceName {
+    font-weight: bold;
+  }
+
+  .choiceDescription {
+    font-weight: normal;
+  }
+}

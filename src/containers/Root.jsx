@@ -9,9 +9,20 @@ function renderCodeReviewSurvey(url) {
   const authorAnchor = document.querySelector('a.author')
   const reviewer = reviewerImg ? reviewerImg.alt.slice(1) : 'unknown'
   const author = authorAnchor ? authorAnchor.innerText : 'unknown'
+  const onSubmit = () => console.log('sumitting ...')
+  const onClose = () => console.log('closing ...')
 
   console.log('Rendering code review survey ...')
-  return <CodeReviewSurvey author={author} reviewer={reviewer} url={url}/>
+  return (
+    <CodeReviewSurvey
+      author={author}
+      reviewer={reviewer}
+      url={url}
+      active
+      onClose={onClose}
+      onSubmit={onSubmit}
+      />
+  )
 }
 
 const Root = ({url}) => {

@@ -1,25 +1,31 @@
 import React, {PropTypes} from 'react'
 
-import {CardText} from 'react-toolbox/lib/card'
 import {RadioGroup, RadioButton} from 'react-toolbox/lib/radio'
+
+import styles from './MultipleChoiceQuestion.scss'
 
 const MultipleChoiceQuestion = props => {
   const {prompt, name, choices, value} = props
-  const radioButtons = Object.keys(choices).map(value => {
-    const label = choices[value]
+  const radioButtons = choices.map(choice => {
+    const label = (
+      <p className={styles.choice}>
+        <span className={styles.choiceName}>{choice.name}</span>:
+        <span className={styles.choiceDescription}> {choice.description}</span>
+      </p>
+    )
     return (
-      <RadioButton key={value} label={label} value={value}/>
+      <RadioButton key={choice.value} label={label} value={choice.value}/>
     )
   })
 
+  console.log({value})
+
   return (
-    <section>
-      <CardText><strong>{prompt}</strong></CardText>
-      <CardText>
-        <RadioGroup name={name} value={value}>
-          {radioButtons}
-        </RadioGroup>
-      </CardText>
+    <section className={styles.multipleChoiceQuestion}>
+      <h3><strong>{prompt}</strong></h3>
+      <RadioGroup name={name} value={value} className={styles.radioGroup}>
+        {radioButtons}
+      </RadioGroup>
     </section>
   )
 }
@@ -27,7 +33,7 @@ const MultipleChoiceQuestion = props => {
 MultipleChoiceQuestion.propTypes = {
   prompt: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  choices: PropTypes.object.isRequired,
+  choices: PropTypes.array.isRequired,
   explanations: PropTypes.object.isRequired,
   value: PropTypes.string,
 }

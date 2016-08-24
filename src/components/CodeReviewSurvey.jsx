@@ -1,97 +1,62 @@
 import React, {Component, PropTypes} from 'react'
 
-import {Button} from 'react-toolbox/lib/button'
-import {Card, CardActions, CardTitle} from 'react-toolbox/lib/card'
+import Dialog from 'react-toolbox/lib/dialog'
 
 import RangeQuestion from './RangeQuestion'
 import MultipleChoiceQuestion from './MultipleChoiceQuestion'
 
 import styles from './CodeReviewSurvey.css'
 
+const changeSizeChoices = [
+  {value: 1, name: 'Tiny', description: 'typo, documentation, one-line change, formatting, etc.'},
+  {value: 2, name: 'Small', description: 'minor Improvement or bugfix isolated to 1 or 2 parts of the system'},
+  {value: 3, name: 'Medium', description: 'significant change'},
+  {value: 4, name: 'Large', description: 'massive new feature or structural refactoring'},
+]
+
+const changeQualityChoices = [
+  {value: 1, name: 'Strongly Disagree', description: 'I am terrified of this code.'},
+  {value: 2, name: 'Disagree', description: 'I will actively avoid touching this code.'},
+  {value: 3, name: 'Somewhat Disagree', description: 'The structure of this code will make changing it take more effort than it should.'},
+  {value: 4, name: 'Somewhat Agree', description: 'This code wouldn\'t get in the way of changes / extensions too much.'},
+  {value: 5, name: 'Agree', description: 'This code will be straightforward to work with and is well tested.'},
+  {value: 6, name: 'Strongly Agree', description: 'This code will be a pleasure to work with and will make my job easier.'},
+]
+
 /* eslint-disable react/require-optimization */
 class CodeReviewSurvey extends Component {
-  constructor() {
-    super()
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  handleSubmit() {
-  }
-
   render() {
-    const changeSizeChoices = {
-      1: <div><strong>Tiny</strong>: typo, documentation, one-line change, formatting, etc.</div>,
-      2: <div><strong>Small</strong>: minor Improvement or bugfix isolated to 1 or 2 parts of the system</div>,
-      3: <div><strong>Medium</strong>: significant change</div>,
-      4: <div><strong>Large</strong>: massive new feature or structural refactoring</div>,
-    }
-
-    const changeQualityChoices = {
-      1: (
-        <div>
-          <strong>Strongly Disagree</strong>:
-          <span className={styles.explanation}> I am terrified of this code.</span>
-        </div>
-      ),
-      2: (
-        <div>
-          <strong>Disagree</strong>:
-          <span className={styles.explanation}> I will actively avoid touching this code.</span>
-        </div>
-      ),
-      3: (
-        <div>
-          <strong>Somewhat Disagree</strong>:
-          <span className={styles.explanation}> The structure of this code will make changing it take more effort than it should.</span>
-        </div>
-      ),
-      4: (
-        <div>
-          <strong>Somewhat Agree</strong>:
-          <span className={styles.explanation}> This code wouldn't get in the way of changes / extensions too much.</span>
-        </div>
-      ),
-      5: (
-        <div>
-          <strong>Agree</strong>:
-          <span className={styles.explanation}> This code will be straightforward to work with and is well tested.</span>
-        </div>
-      ),
-      6: (
-        <div>
-          <strong>Strongly Agree</strong>:
-          <span className={styles.explanation}> This code will be a pleasure to work with and will make my job easier.</span>
-        </div>
-      ),
-    }
+    const {active, onClose, onSubmit} = this.props
+    const actions = [
+      {label: 'Cancel', onClick: onClose},
+      {label: 'Save', onClick: onSubmit},
+    ]
 
     return (
-      <Card className={styles.survey}>
-        <CardTitle>Feedback on this PR</CardTitle>
+      <Dialog
+        className={styles.survey}
+        actions={actions}
+        active={active}
+        onEscKeyDown={this.handleClose}
+        onOverlayClick={this.handleClose}
+        title="Feedback on this PR"
+        >
 
         <RangeQuestion
           prompt="How big is this change?"
           name="changeSize"
           choices={changeSizeChoices}
+          value={2}
           />
 
         <MultipleChoiceQuestion
           prompt="This code would be easy for me to change or extend in the future:"
           name="changeQuality"
           choices={changeQualityChoices}
+          value="3"
           />
 
-        <CardActions className={styles.actions}>
-          <Button
-            raised
-            primary
-            disabled={false}
-            icon="done"
-            label="Submit"
-            onClick={this.handleSubmit}
-            />
-        </CardActions>
-      </Card>
+      </Dialog>
     )
   }
 }
@@ -100,6 +65,9 @@ CodeReviewSurvey.propTypes = {
   author: PropTypes.string.isRequired,
   reviewer: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default CodeReviewSurvey
