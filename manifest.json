@@ -5,7 +5,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://github.com/LearnersGuild/*/pull/*/files"
+        "https://github.com/LearnersGuild/*/pull/*"
       ],
       "js": ["lib/app.js"],
       "css" : ["lib/app.css"]

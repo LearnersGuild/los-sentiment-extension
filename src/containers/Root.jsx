@@ -10,7 +10,7 @@ const Root = ({store}) => {
   // if our URL doesn't match anything we care about, render nothing
   let child = <div style={{display: 'none'}}/>
   // reviewer survey
-  if (url.match(/^https:\/\/github\.com\/\w+\/\w+\/pull\/\d+\/files$/)) {
+  if (url.match(/^https:\/\/github\.com\/\w+\/\w+\/pull\/\d+/)) {
     console.info('rendering code review survey ...')
     child = <ReviewerSurvey url={url}/>
   }
