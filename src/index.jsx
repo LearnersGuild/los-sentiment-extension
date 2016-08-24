@@ -1,7 +1,9 @@
-/* global document window */
+/* global document */
 import 'react-toolbox/lib/commons.scss'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import {render} from 'react-dom'
+
+import configureStore from './store/configureStore'
 import Root from './containers/Root'
 
 import './index.css'
@@ -30,5 +32,6 @@ function appendExtensionDiv() {
 
 const extDiv = appendExtensionDiv()
 importFonts()
-const url = window && window.location ? window.location.href : 'unknown'
-ReactDOM.render(<Root url={url}/>, extDiv)
+const store = configureStore({})
+
+render(<Root store={store}/>, extDiv)

@@ -5,7 +5,7 @@ import Dialog from 'react-toolbox/lib/dialog'
 import RangeQuestion from './RangeQuestion'
 import MultipleChoiceQuestion from './MultipleChoiceQuestion'
 
-import styles from './CodeReviewSurvey.css'
+import styles from './ReviewerSurvey.css'
 
 const changeSizeChoices = [
   {value: 1, name: 'Tiny', description: 'typo, documentation, one-line change, formatting, etc.'},
@@ -24,12 +24,15 @@ const changeQualityChoices = [
 ]
 
 /* eslint-disable react/require-optimization */
-class CodeReviewSurvey extends Component {
+class ReviewerSurvey extends Component {
+  handleChangeSize = size => this.props.onChange({size})
+  handleChangeQuality = quality => this.props.onChange({quality})
+
   render() {
-    const {active, onClose, onSubmit} = this.props
+    const {active, size, quality, onClose, onSubmit} = this.props
     const actions = [
       {label: 'Cancel', onClick: onClose},
-      {label: 'Save', onClick: onSubmit},
+      {label: 'Save', onClick: onSubmit, disabled: !quality},
     ]
 
     return (
@@ -46,14 +49,16 @@ class CodeReviewSurvey extends Component {
           prompt="How big is this change?"
           name="changeSize"
           choices={changeSizeChoices}
-          value={2}
+          value={size}
+          onChange={this.handleChangeSize}
           />
 
         <MultipleChoiceQuestion
           prompt="This code would be easy for me to change or extend in the future:"
           name="changeQuality"
           choices={changeQualityChoices}
-          value="3"
+          value={quality}
+          onChange={this.handleChangeQuality}
           />
 
       </Dialog>
@@ -61,13 +66,17 @@ class CodeReviewSurvey extends Component {
   }
 }
 
-CodeReviewSurvey.propTypes = {
+ReviewerSurvey.propTypes = {
+  active: PropTypes.bool.isRequired,
   author: PropTypes.string.isRequired,
   reviewer: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  active: PropTypes.bool.isRequired,
+  size: PropTypes.number.isRequired,
+  quality: PropTypes.number.isRequired,
+  isBusy: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 }
 
-export default CodeReviewSurvey
+export default ReviewerSurvey

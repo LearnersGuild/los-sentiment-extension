@@ -5,21 +5,19 @@ import Slider from 'react-toolbox/lib/slider'
 import styles from './RangeQuestion.scss'
 
 const explanationNameColors = {
-  1: 'DarkOrangeGreen',
+  1: 'DarkGreen',
   2: 'DarkBlue',
   3: 'Goldenrod',
   4: 'DarkOrange',
 }
 
 const RangeQuestion = props => {
-  const {prompt, name, choices, value} = props
+  const {prompt, name, choices, value, onChange} = props
   const possibleValues = choices.map(choice => choice.value)
   const min = possibleValues.sort()[0]
   const max = possibleValues.sort()[possibleValues.length - 1]
   const selectedChoice = choices.find(choice => choice.value === value)
   const explanationNameColor = explanationNameColors[value] || 'DimGrey'
-
-  console.log({value, min, max})
 
   return (
     <section className={styles.rangeQuestion}>
@@ -31,6 +29,7 @@ const RangeQuestion = props => {
         max={max}
         step={1}
         value={value}
+        onChange={onChange}
         />
       <p className={styles.explanation}>
         <span className={styles.explanationName} style={{backgroundColor: explanationNameColor}}>{selectedChoice.name}</span>
@@ -45,6 +44,7 @@ RangeQuestion.propTypes = {
   name: PropTypes.string.isRequired,
   choices: PropTypes.array.isRequired,
   value: PropTypes.number,
+  onChange: PropTypes.func.isRequired,
 }
 
 export default RangeQuestion

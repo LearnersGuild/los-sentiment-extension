@@ -5,7 +5,7 @@ import {RadioGroup, RadioButton} from 'react-toolbox/lib/radio'
 import styles from './MultipleChoiceQuestion.scss'
 
 const MultipleChoiceQuestion = props => {
-  const {prompt, name, choices, value} = props
+  const {prompt, name, choices, value, onChange} = props
   const radioButtons = choices.map(choice => {
     const label = (
       <p className={styles.choice}>
@@ -18,12 +18,10 @@ const MultipleChoiceQuestion = props => {
     )
   })
 
-  console.log({value})
-
   return (
     <section className={styles.multipleChoiceQuestion}>
       <h3><strong>{prompt}</strong></h3>
-      <RadioGroup name={name} value={value} className={styles.radioGroup}>
+      <RadioGroup name={name} value={value} className={styles.radioGroup} onChange={onChange}>
         {radioButtons}
       </RadioGroup>
     </section>
@@ -35,7 +33,8 @@ MultipleChoiceQuestion.propTypes = {
   name: PropTypes.string.isRequired,
   choices: PropTypes.array.isRequired,
   explanations: PropTypes.object.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.number,
+  onChange: PropTypes.func.isRequired,
 }
 
 export default MultipleChoiceQuestion
