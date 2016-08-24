@@ -39,8 +39,26 @@ ReviewerSurvey.propTypes = {
   dispatch: PropTypes.func.isRequired,
 }
 
+function deducePRSize() {
+  const commitsCounter = document.querySelector('#commits_tab_counter')
+  const filesCounter = document.querySelector('#files_tab_counter')
+  const numCommits = parseInt(commitsCounter.innerText, 10)
+  const numFiles = parseInt(filesCounter.innerText, 10)
+  if (numFiles === 1 && numCommits === 1) {
+    return 1
+  } else if (numFiles <= 3 && numCommits <= 3) {
+    return 2
+  } else if (numFiles <= 5 && numCommits <= 5) {
+    return 3
+  }
+  return 4
+}
+
 function mapStateToProps(state) {
-  return state.reviewerSurvey
+  return {
+    ...state.reviewerSurvey,
+    size: deducePRSize(),
+  }
 }
 
 export default connect(mapStateToProps)(ReviewerSurvey)
