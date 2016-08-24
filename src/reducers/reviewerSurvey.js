@@ -3,7 +3,7 @@ import {
 } from '../actions/reviewerSurvey'
 
 const initialState = {
-  active: true,
+  active: false,
   size: 3, // medium
   quality: null,
   isBusy: false,

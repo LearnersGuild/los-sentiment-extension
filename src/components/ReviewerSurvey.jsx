@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 
+import {Button} from 'react-toolbox/lib/button'
 import Dialog from 'react-toolbox/lib/dialog'
 
 import RangeQuestion from './RangeQuestion'
@@ -25,6 +26,7 @@ const changeQualityChoices = [
 
 /* eslint-disable react/require-optimization */
 class ReviewerSurvey extends Component {
+  handleLaunchSurvey = () => this.props.onChange({active: true})
   handleChangeSize = size => this.props.onChange({size})
   handleChangeQuality = quality => this.props.onChange({quality})
 
@@ -34,34 +36,46 @@ class ReviewerSurvey extends Component {
       {label: 'Cancel', onClick: onClose},
       {label: 'Save', onClick: onSubmit, disabled: !quality},
     ]
+    const buttonDisplay = active ? 'none' : 'block'
 
     return (
-      <Dialog
-        className={styles.survey}
-        actions={actions}
-        active={active}
-        onEscKeyDown={this.handleClose}
-        onOverlayClick={this.handleClose}
-        title="Feedback on this PR"
-        >
-
-        <RangeQuestion
-          prompt="How big is this change?"
-          name="changeSize"
-          choices={changeSizeChoices}
-          value={size}
-          onChange={this.handleChangeSize}
+      <div>
+        <Button
+          className={styles.launchSurvey}
+          style={{display: buttonDisplay}}
+          raised
+          primary
+          icon="assignment"
+          label="Rate this PR"
+          onClick={this.handleLaunchSurvey}
           />
+        <Dialog
+          className={styles.surveyDialog}
+          actions={actions}
+          active={active}
+          onEscKeyDown={this.handleClose}
+          onOverlayClick={this.handleClose}
+          title="Feedback on this PR"
+          >
 
-        <MultipleChoiceQuestion
-          prompt="This code would be easy for me to change or extend in the future:"
-          name="changeQuality"
-          choices={changeQualityChoices}
-          value={quality}
-          onChange={this.handleChangeQuality}
-          />
+          <RangeQuestion
+            prompt="How big is this change?"
+            name="changeSize"
+            choices={changeSizeChoices}
+            value={size}
+            onChange={this.handleChangeSize}
+            />
 
-      </Dialog>
+          <MultipleChoiceQuestion
+            prompt="This code would be easy for me to change or extend in the future:"
+            name="changeQuality"
+            choices={changeQualityChoices}
+            value={quality}
+            onChange={this.handleChangeQuality}
+            />
+
+        </Dialog>
+      </div>
     )
   }
 }
