@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
-import {updateReviewerSurvey} from '../actions/reviewerSurvey'
+import {updateReviewerSurvey} from '../actions/updateReviewerSurvey'
 import {saveSurvey, REVIEWER_SURVEYS} from '../actions/saveSurvey'
 import ReviewerSurveyComponent from '../components/ReviewerSurvey'
 
