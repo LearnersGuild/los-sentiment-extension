@@ -2,6 +2,10 @@
   "manifest_version": 2,
   "name": "LOS Sentiment",
   "version": "0.1.0",
+  "permissions": [
+    "https://fonts.googleapis.com/",
+    "https://api.keen.io/"
+  ],
   "content_scripts": [
     {
       "matches": [

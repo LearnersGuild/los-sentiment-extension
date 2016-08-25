@@ -2,13 +2,22 @@ import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
 import {updateAuthorSurvey} from '../actions/authorSurvey'
+import {saveSurvey, AUTHOR_SURVEYS} from '../actions/saveSurvey'
 import AuthorSurveyComponent from '../components/AuthorSurvey'
 
 const AuthorSurvey = props => {
   const {dispatch} = props
   const handleChange = surveyData => dispatch(updateAuthorSurvey(surveyData))
   const handleClose = () => dispatch(updateAuthorSurvey({active: false}))
-  const handleSubmit = () => console.warn('TODO: submit to Keen.io')
+  const handleSubmit = () => {
+    const surveyData = {
+      url: props.url,
+      author: props.author,
+      quality: props.quality,
+    }
+    dispatch(saveSurvey(AUTHOR_SURVEYS, surveyData))
+    dispatch(updateAuthorSurvey({active: false}))
+  }
 
   return (
     <AuthorSurveyComponent

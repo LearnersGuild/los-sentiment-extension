@@ -1,14 +1,15 @@
 import {DISMISS_ERROR} from '../actions/dismissError'
+import {SAVE_SURVEY_FAILURE} from '../actions/saveSurvey'
 
 const initialState = {
   messages: [],
 }
 
-// function appendMessage(state, message) {
-//   const messages = state.messages.slice(0)
-//   messages.push(message)
-//   return messages
-// }
+function appendMessage(state, message) {
+  const messages = state.messages.slice(0)
+  messages.push(message)
+  return messages
+}
 
 function removeMessage(state, index) {
   const messages = state.messages.slice(0)
@@ -22,10 +23,10 @@ export function errors(state = initialState, action) {
       return Object.assign({}, state, {
         messages: removeMessage(state, action.index)
       })
-    // case UPDATE_USER_FAILURE:
-    //   return Object.assign({}, state, {
-    //     messages: appendMessage(state, action.error),
-    //   })
+    case SAVE_SURVEY_FAILURE:
+      return Object.assign({}, state, {
+        messages: appendMessage(state, action.error),
+      })
     default:
       return state
   }
