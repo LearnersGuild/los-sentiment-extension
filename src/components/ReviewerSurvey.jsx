@@ -55,7 +55,7 @@ class ReviewerSurvey extends Component {
           active={active}
           onEscKeyDown={this.handleClose}
           onOverlayClick={this.handleClose}
-          title="Feedback on this PR"
+          title="How do you feel about the code changes?"
           >
 
           <RangeQuestion

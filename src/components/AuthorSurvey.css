@@ -1,0 +1,18 @@
+.launchSurvey {
+  position: fixed;
+  bottom: 0.2rem;
+  right: 0.2rem;
+}
+
+.surveyDialog {
+  width: 66%;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.explanation {
+  font-weight: normal;
+}
