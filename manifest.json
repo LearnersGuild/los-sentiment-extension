@@ -1,6 +1,7 @@
 {
   "manifest_version": 2,
   "name": "LOS Sentiment",
+  "short_name": "LOS Sentiment",
   "version": "0.1.0",
   "permissions": [
     "https://fonts.googleapis.com/",
@@ -14,5 +15,10 @@
       "js": ["lib/app.js"],
       "css" : ["lib/app.css"]
     }
-  ]
+  ],
+  "icons": {
+    "16": "assets/lg-icon-16x16.png",
+    "48": "assets/lg-icon-48x48.png",
+    "128": "assets/lg-icon-128x128.png"
+  }
 }
